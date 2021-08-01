@@ -1,3 +1,6 @@
+import { Action } from "redux";
+import { ThunkAction } from "redux-thunk";
+import Store from "../models/store.interface";
 import Todo from "../models/todo.interface";
 
 export const ADD_TODO = "ADD_TODO";
@@ -39,3 +42,11 @@ export const setNewTodo = (text: string): ActionTypes => ({
   type: SET_NEW_TODO,
   payload: text,
 });
+
+export const getTodos =
+  (url: string): ThunkAction<void, Store, unknown, Action<string>> =>
+  async (dispatch) => {
+    const resp = await fetch(url);
+    const todos: Todo[] = await resp.json();
+    dispatch(setTodos(todos));
+  };

@@ -1,4 +1,5 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import Store from "../models/store.interface";
 import Todo from "../models/todo.interface";
 import {
@@ -77,6 +78,6 @@ const todoReducer = (
   }
 };
 
-const store = createStore(todoReducer);
+const store = createStore(todoReducer, applyMiddleware(thunk));
 
 export default store;
